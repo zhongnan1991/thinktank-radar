@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* editorial intelligence-brief palette: warm paper + deep navy ink */
+    --background: 48 24% 95%; /* #F4F2EC warm paper */
+    --foreground: 222 35% 13%; /* deep ink navy */
+    --card: 48 24% 97%;
+    --card-foreground: 222 35% 13%;
+    --popover: 48 24% 97%;
+    --popover-foreground: 222 35% 13%;
+    --primary: 208 81% 17%; /* #082D4F deep navy */
+    --primary-foreground: 48 24% 96%;
+    --secondary: 45 15% 90%;
+    --secondary-foreground: 222 35% 13%;
+    --muted: 45 14% 91%;
+    --muted-foreground: 220 7% 40%;
+    --accent: 45 15% 90%;
+    --accent-foreground: 222 35% 13%;
+    --destructive: 12 62% 38%;
+    --destructive-foreground: 48 24% 96%;
+    --border: 45 10% 81%; /* hairline */
+    --input: 45 10% 81%;
+    --ring: 208 81% 17%;
+    --radius: 0.25rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", "Noto Sans SC", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-feature-settings: "tnum";
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: #082d4f;
+    color: #f4f2ec;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Newsreader", "Noto Serif SC", Georgia, "Songti SC", serif;
+  }
+  .font-ui {
+    font-family: "Inter", "Noto Sans SC", -apple-system, "PingFang SC", sans-serif;
+  }
+  .font-mono2 {
+    font-family: "IBM Plex Mono", ui-monospace, "Sarasa Mono SC", monospace;
+  }
+  .caps {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+  .hairline-t {
+    border-top: 1px solid hsl(var(--border));
+  }
+  .hairline-b {
+    border-bottom: 1px solid hsl(var(--border));
+  }
+  .rule-double {
+    border-top: 3px solid hsl(var(--foreground));
+    border-bottom: 1px solid hsl(var(--foreground));
+    height: 7px;
+  }
+  .clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* ticker */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 90s linear infinite;
+}
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+}
+
+/* report row hover */
+.report-row {
+  transition: background-color 120ms ease;
+}
+.report-row:hover {
+  background: hsl(45 18% 92%);
+}
+.report-row:hover .row-index {
+  color: hsl(var(--primary));
+}
+
+/* cluster card open state */
+.cluster-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 220ms ease;
+}
+.cluster-body.open {
+  grid-template-rows: 1fr;
+}
+.cluster-body > div {
+  overflow: hidden;
+}
+
+/* loading skeleton shimmer */
+@keyframes shimmer {
+  from { opacity: 0.45; }
+  to { opacity: 0.9; }
+}
+.skeleton {
+  animation: shimmer 0.9s ease-in-out infinite alternate;
+  background: hsl(45 12% 88%);
+}
+
+/* thin scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(45 8% 72%) transparent;
+}
